@@ -29,14 +29,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <style>
         body {
             font-family: 'Nunito', sans-serif;
             background-color: #E0E0E0;
         }
-
+        /* 시계 위젯 스타일 (Header.png 사용) */
         #time-widget {
             background-image: url('Header.png'); 
             background-color: transparent; 
@@ -58,15 +58,11 @@
         #time-widget::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background-color: rgba(0, 0, 0, 0.4); 
             z-index: 1; 
             border-radius: 1rem; 
         }
-
         #time-widget #time-display, 
         #time-widget #date-display {
             position: relative;
@@ -75,12 +71,12 @@
             text-shadow: 1px 1px 5px rgba(0,0,0,0.8); 
         }
 
-        /* ---------------------- 음악 위젯 스타일 ---------------------- */
+        /* 음악 위젯 스타일 */
         #music-widget {
             background: #FFFFFF; 
             border-radius: 1.5rem;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
-            margin-bottom: 2.5rem; /* 시간 위젯과 목록 사이 간격 조정 */
+            margin-bottom: 2.5rem; 
         }
 
         .album-art-container {
@@ -122,19 +118,9 @@
         .player-controls i:hover {
             color: #212121; 
         }
+        
+        /* 이전 요청에서 추가되었던 확장팩 아이콘 관련 CSS는 모두 제거됨 */
 
-        /* 확장팩 목록 아이콘 스타일 */
-        .expansion-icon {
-            font-size: 1.25rem; /* 아이콘 크기 조정 */
-            color: #8A8A8A; /* 기본 회색 */
-            margin-right: 0.75rem; /* 텍스트와의 간격 */
-        }
-        .expansion-icon.music {
-            color: #4A4A4A; /* 음악 아이콘 색상 (다른 아이콘과 다르게) */
-        }
-        .group:hover .expansion-icon.music {
-            color: #212121; /* 호버 시 더 어둡게 */
-        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-6">
@@ -153,53 +139,56 @@
         <h2 class="text-3xl font-bold text-my-neutral-900 mb-1">Blizzards</h2>
         <p class="text-sm text-my-neutral-500 mb-6">Lorem ipsum dolor, sit ament consecutur adipisicing.</p>
 
-        <div class="player-controls flex space-x-8">
-            <i class="fas fa-backward"></i> <i class="fas fa-pause"></i> 
-            <i class="fas fa-play"></i>
-            <i class="fas fa-forward"></i> <i class="fas fa-redo-alt"></i>
+        <div id="control-icons" class="player-controls flex space-x-8">
+            <i class="fas fa-backward" onclick="document.getElementById('audio-player').currentTime -= 5;"></i> 
+            <i id="play-pause-icon" class="fas fa-play" onclick="togglePlayPause()"></i>
+            <i class="fas fa-forward" onclick="document.getElementById('audio-player').currentTime += 5;"></i> 
+            <i class="fas fa-redo-alt"></i>
         </div>
     </div>
+    
+    <audio id="audio-player" src="Audio.mp3" preload="auto"></audio>
     
     <div class="w-full max-w-4xl grid grid-cols-1 sm:grid-cols-2 gap-4 mx-auto">
         <a href="A_Realm_Reborn.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
             <div>
                 <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">💎 A Realm Reborn</h2>
-                <p class="text-sm text-my-neutral-500">신생 에오르제아 <i class="fas fa-music expansion-icon music"></i></p>
+                <p class="text-sm text-my-neutral-500">신생 에오르제아</p>
             </div>
         </a>
 
         <a href="Heavensward.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
             <div>
                 <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">🐉 Heavensward</h2>
-                <p class="text-sm text-my-neutral-500">창천의 이슈가르드 <i class="fas fa-music expansion-icon music"></i></p>
+                <p class="text-sm text-my-neutral-500">창천의 이슈가르드</p>
             </div>
         </a>
         
         <a href="Stormblood.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
             <div>
                 <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">⚔️ Stormblood</h2>
-                <p class="text-sm text-my-neutral-500">홍련의 해방자 <i class="fas fa-music expansion-icon music"></i></p>
+                <p class="text-sm text-my-neutral-500">홍련의 해방자</p>
             </div>
         </a>
 
         <a href="Shadowbringers.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
             <div>
                 <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">🌑 Shadowbringers</h2>
-                <p class="text-sm text-my-neutral-500">칠흑의 반역자 <i class="fas fa-music expansion-icon music"></i></p>
+                <p class="text-sm text-my-neutral-500">칠흑의 반역자</p>
             </div>
         </a>
 
         <a href="Endwalker.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
             <div>
                 <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">🌠 Endwalker</h2>
-                <p class="text-sm text-my-neutral-500">효월의 종언 <i class="fas fa-music expansion-icon music"></i></p>
+                <p class="text-sm text-my-neutral-500">효월의 종언</p>
             </div>
         </a>
         
         <a href="Dawntrail.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
             <div>
                 <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">☀️ Dawntrail</h2>
-                <p class="text-sm text-my-neutral-500">황금의 유산 <i class="fas fa-music expansion-icon music"></i></p>
+                <p class="text-sm text-my-neutral-500">황금의 유산</p>
             </div>
         </a>
         
@@ -210,16 +199,14 @@
         window.addEventListener('DOMContentLoaded', () => {
             const timeDisplay = document.getElementById('time-display');
             const dateDisplay = document.getElementById('date-display');
+            const audioPlayer = document.getElementById('audio-player');
+            const playPauseIcon = document.getElementById('play-pause-icon');
 
             function updateTime() {
-                // 현재 시간을 한국 표준시(KST)로 표시
                 const now = new Date();
                 const timeOptions = {
                     timeZone: 'Asia/Seoul',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit',
-                    hour12: false
+                    hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
                 };
                 const dateOptions = {
                     timeZone: 'Asia/Seoul',
@@ -232,6 +219,29 @@
 
             updateTime();
             setInterval(updateTime, 1000);
+            
+            // --- 음악 재생 기능 스크립트 ---
+            window.togglePlayPause = function() {
+                if (audioPlayer.paused) {
+                    audioPlayer.play();
+                    playPauseIcon.classList.remove('fa-play');
+                    playPauseIcon.classList.add('fa-pause');
+                } else {
+                    audioPlayer.pause();
+                    playPauseIcon.classList.remove('fa-pause');
+                    playPauseIcon.classList.add('fa-play');
+                }
+            };
+
+            audioPlayer.addEventListener('play', () => {
+                playPauseIcon.classList.remove('fa-play');
+                playPauseIcon.classList.add('fa-pause');
+            });
+
+            audioPlayer.addEventListener('pause', () => {
+                playPauseIcon.classList.remove('fa-pause');
+                playPauseIcon.classList.add('fa-play');
+            });
         });
     </script>
 
