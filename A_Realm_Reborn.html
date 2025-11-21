@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Realm Reborn</title>
+    <title>A Realm Reborn: 갤러리 및 사진별 댓글</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -58,15 +58,16 @@
 </head>
 <body class="min-h-screen flex flex-col items-center p-6">
 
-    <div class="w-full max-w-4xl bg-white p-8 rounded-2xl shadow-xl space-y-12">
+    <!-- 메인 컨테이너 최대 너비를 max-w-6xl로 유지 -->
+    <div class="w-full max-w-6xl bg-white p-8 rounded-2xl shadow-xl space-y-12">
         
         <header class="text-center pb-4 border-b border-my-neutral-300">
             <a href="index.html" class="text-blue-600 hover:text-blue-800 transition duration-150 text-sm font-semibold inline-block mb-2">← 목록으로 돌아가기</a>
             <h1 class="text-5xl font-extrabold text-my-neutral-900 leading-tight">
-                A Realm Reborn 사진첩
+                A Realm Reborn (ARR) 갤러리
             </h1>
             <p class="text-my-neutral-700 mt-2 text-xl">
-                모험가를 위한 안내
+                에오르제아의 재건과 추억을 사진별로 공유해보세요.
             </p>
             <div id="auth-status" class="mt-4 text-sm text-my-neutral-500">
                 인증 상태: <span id="user-id-display" class="font-mono text-blue-600">불러오는 중...</span>
@@ -82,21 +83,25 @@
                     [Photo 1] 에오르제아의 영웅들
                 </h2>
                 
-                <div class="bg-gray-100 p-4 rounded-xl shadow-custom">
-                    <img 
-                        src="https://placehold.co/800x450/4CAF50/FFFFFF/png?text=ARR+Scene+1" 
-                        alt="A Realm Reborn Scene 1" 
-                        class="w-full h-auto rounded-lg shadow-lg"
-                        onerror="this.onerror=null; this.src='https://placehold.co/800x450/6b7280/FFFFFF/png?text=Image+Load+Failed';"
-                    >
-                    <p class="text-center text-my-neutral-500 mt-3 italic">
-                        울다하 광장에서의 첫 만남을 기억하시나요?
-                    </p>
+                <!-- [수정됨] 사진 크기를 줄이고 중앙에 배치 (max-w-lg) -->
+                <div class="flex justify-center">
+                    <div class="bg-gray-100 p-4 rounded-xl shadow-custom w-full max-w-lg">
+                        <img 
+                            src="https://placehold.co/1200x675/4CAF50/FFFFFF/png?text=ARR+Scene+1+(16:9+Wider)" 
+                            alt="A Realm Reborn Scene 1" 
+                            class="w-full h-auto rounded-lg shadow-lg"
+                            onerror="this.onerror=null; this.src='https://placehold.co/1200x675/6b7280/FFFFFF/png?text=Image+Load+Failed';"
+                        >
+                        <p class="text-center text-my-neutral-500 mt-3 italic">
+                            울다하 광장에서의 첫 만남을 기억하시나요?
+                        </p>
+                    </div>
                 </div>
 
                 <!-- 댓글 시스템 -->
                 <div class="comment-system-wrapper space-y-4">
-                    <h3 class="text-2xl font-bold text-my-neutral-700 border-l-2 border-blue-500 pl-2">댓글 (실시간)</h3>
+                    <!-- [수정됨] 댓글 제목을 '댓글 창'으로 변경 -->
+                    <h3 class="text-2xl font-bold text-my-neutral-700 border-l-2 border-blue-500 pl-2">댓글 창</h3>
                     
                     <!-- 댓글 입력 폼 -->
                     <form id="comment-form-photo-1" class="bg-my-neutral-100 p-5 rounded-xl shadow-inner space-y-3">
@@ -131,21 +136,25 @@
                     [Photo 2] 바하무트 레이드
                 </h2>
                 
-                <div class="bg-gray-100 p-4 rounded-xl shadow-custom">
-                    <img 
-                        src="https://placehold.co/800x450/B71C1C/FFFFFF/png?text=ARR+Scene+2" 
-                        alt="A Realm Reborn Scene 2" 
-                        class="w-full h-auto rounded-lg shadow-lg"
-                        onerror="this.onerror=null; this.src='https://placehold.co/800x450/6b7280/FFFFFF/png?text=Image+Load+Failed';"
-                    >
-                    <p class="text-center text-my-neutral-500 mt-3 italic">
-                        어려웠던 바하무트 토벌전에 대한 기억은?
-                    </p>
+                <!-- [수정됨] 사진 크기를 줄이고 중앙에 배치 (max-w-lg) -->
+                <div class="flex justify-center">
+                    <div class="bg-gray-100 p-4 rounded-xl shadow-custom w-full max-w-lg">
+                        <img 
+                            src="https://placehold.co/1200x675/B71C1C/FFFFFF/png?text=ARR+Scene+2+(16:9+Wider)" 
+                            alt="A Realm Reborn Scene 2" 
+                            class="w-full h-auto rounded-lg shadow-lg"
+                            onerror="this.onerror=null; this.src='https://placehold.co/1200x675/6b7280/FFFFFF/png?text=Image+Load+Failed';"
+                        >
+                        <p class="text-center text-my-neutral-500 mt-3 italic">
+                            어려웠던 바하무트 토벌전에 대한 기억은?
+                        </p>
+                    </div>
                 </div>
 
                 <!-- 댓글 시스템 -->
                 <div class="comment-system-wrapper space-y-4">
-                    <h3 class="text-2xl font-bold text-my-neutral-700 border-l-2 border-blue-500 pl-2">댓글 (실시간)</h3>
+                    <!-- [수정됨] 댓글 제목을 '댓글 창'으로 변경 -->
+                    <h3 class="text-2xl font-bold text-my-neutral-700 border-l-2 border-blue-500 pl-2">댓글 창</h3>
                     
                     <!-- 댓글 입력 폼 -->
                     <form id="comment-form-photo-2" class="bg-my-neutral-100 p-5 rounded-xl shadow-inner space-y-3">
@@ -188,6 +197,7 @@
         let auth;
         let currentUserId = null;
 
+        // 필수 전역 변수에서 Firebase 설정 및 앱 ID 로드
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
         const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
@@ -217,7 +227,7 @@
                 orderBy('timestamp', 'desc')
             );
 
-            // 실시간 리스너 설정
+            // 실시간 리스너 설정 (UI에서는 '댓글 창'으로 표시되지만, 데이터는 실시간으로 업데이트됨)
             onSnapshot(commentsQuery, (snapshot) => {
                 commentsList.innerHTML = '';
                 
@@ -279,6 +289,7 @@
                 if (!commentText) return;
                 
                 if (!db || !currentUserId) {
+                    // 사용자에게 오류 메시지를 보여줍니다.
                     errorMessage.textContent = "데이터베이스 또는 사용자 인증이 준비되지 않았습니다.";
                     errorMessage.classList.remove('hidden');
                     return;
@@ -316,12 +327,15 @@
          */
         async function initFirebase() {
             if (!firebaseConfig) {
-                console.error("Firebase config is missing.");
-                // 모든 오류 메시지 div에 적용
+                console.error("Firebase config is missing. The environment variable __firebase_config was not found or was null.");
+                // Firebase 설정이 누락되었음을 사용자에게 명확히 알립니다.
                 document.querySelectorAll('[id^="error-message"]').forEach(el => {
-                    el.textContent = "Firebase 설정이 누락되었습니다.";
+                    el.textContent = "Firebase 설정이 누락되었습니다. 이 앱은 Canvas 환경에서만 정상 작동합니다.";
                     el.classList.remove('hidden');
                 });
+                document.querySelectorAll('[id^="loading-message"]').forEach(el => el.classList.add('hidden'));
+                document.querySelectorAll('[id^="post-button"]').forEach(btn => btn.disabled = true);
+                userIdDisplay.textContent = '오류: 설정 누락';
                 return;
             }
 
@@ -331,30 +345,14 @@
                 auth = getAuth(app);
                 setLogLevel('error');
 
+                // 인증 토큰 유무에 따라 로그인 방식 결정
                 if (initialAuthToken) {
                     await signInWithCustomToken(auth, initialAuthToken);
                 } else {
                     await signInAnonymously(auth);
                 }
                 
-                onAuthStateChanged(auth, (user) => {
-                    currentUserId = user ? user.uid : crypto.randomUUID();
-                    const shortId = currentUserId.substring(0, 8);
-                    userIdDisplay.textContent = user ? `${shortId}... (인증됨)` : `${shortId}... (익명)`;
-                    
-                    // 모든 버튼 활성화
-                    document.querySelectorAll('[id^="post-button"]').forEach(btn => btn.disabled = false);
 
-                    // 모든 사진별 댓글 시스템 초기화
-                    const photoGroups = document.querySelectorAll('.photo-comment-group');
-                    photoGroups.forEach(group => {
-                        const photoId = group.getAttribute('data-photo-id');
-                        if (photoId) {
-                            loadComments(photoId);
-                            setupCommentForm(photoId);
-                        }
-                    });
-                });
 
             } catch (error) {
                 console.error("Firebase Initialization or Auth Error:", error);
@@ -362,6 +360,7 @@
                     el.textContent = `Firebase 오류: ${error.message}`;
                     el.classList.remove('hidden');
                 });
+                document.querySelectorAll('[id^="loading-message"]').forEach(el => el.classList.add('hidden'));
             }
         }
 
