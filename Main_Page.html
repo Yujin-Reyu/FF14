@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Website - Home</title>
+    <title>우리들의 모험담</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -27,80 +27,137 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     
     <style>
         body {
             font-family: 'Nunito', sans-serif;
-            background-color: #FDFDFD; /* my-neutral-50 적용 */
+            background-color: #E0E0E0;
+        }
+
+        #time-widget {
+            /* 🚩 깃허브 레포지토리의 Header.png 파일로 경로 설정 (이미지 로드 실패 시 투명 배경 사용) */
+            background-image: url('Header.png'); 
+            
+            background-color: transparent; 
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat; 
+            border-radius: 1rem; 
+            padding: 2rem; 
+            box-shadow: 0 10px 15px rgba(0,0,0,0.2); 
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 350px; 
+        }
+        
+        /* 텍스트 가독성을 위한 반투명 오버레이 */
+        #time-widget::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.4); 
+            z-index: 1; 
+            border-radius: 1rem; 
+        }
+
+        /* 시계 텍스트 스타일 (흰색, 오버레이 위) */
+        #time-widget #time-display, 
+        #time-widget #date-display {
+            position: relative;
+            z-index: 2;
+            color: #FFFFFF; 
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.8); 
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-6">
 
-    <div id="time-widget" class="mb-12 w-full max-w-sm flex flex-col items-center justify-center font-semibold">
-        <span id="time-display" class="text-6xl font-extrabold text-my-neutral-500">00:00:00</span>
-        <span id="date-display" class="text-xl text-my-neutral-700 mt-3">시간을 불러오는 중...</span>
+    <div id="time-widget" class="mb-12 w-full max-w-2xl font-semibold">
+        <!-- 위젯 제목 제거됨 -->
+        <span id="time-display" class="text-6xl font-extrabold">00:00:00</span>
+        <span id="date-display" class="text-xl mt-3">시간을 불러오는 중...</span>
     </div>
 
-    <div class="w-full max-w-lg space-y-4">
+    <!-- 목록을 담을 컨테이너: 최대 너비를 4XL로 넓히고, Grid로 2열 설정 (sm 이상) -->
+    <div class="w-full max-w-4xl grid grid-cols-1 sm:grid-cols-2 gap-4">
         
-        <a href="A_Realm_Reborn.html" class="flex items-center justify-between p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-my-neutral-300">
-            <h2 class="text-2xl font-bold text-my-neutral-900"> A Realm Reborn </h2>
-            <svg class="w-8 h-8 text-my-neutral-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1h-2V3a1 1 0 011-1zm3 8a3 3 0 11-6 0 3 3 0 016 0zM3 18a1 1 0 01-1-1v-2a2 2 0 012-2h12a2 2 0 012 2v2a1 1 0 01-1 1H3z" clip-rule="evenodd"></path></svg>
-        </a>
-        
-        <a href="Heavensward.html" class="flex items-center justify-between p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-my-neutral-300">
-            <h2 class="text-2xl font-bold text-my-neutral-900"> Heavensward </h2>
-            <svg class="w-8 h-8 text-my-neutral-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.898.552L7.382 10H5.5a.5.5 0 000 1h2.382l1.72 2.448A1 1 0 0010 14a1 1 0 00.898-.552l1.72-2.448H14.5a.5.5 0 000-1h-1.882l-1.72-2.448A1 1 0 0010 7z" clip-rule="evenodd"></path></svg>
-        </a>
-        
-        <a href="Stormblood.html" class="flex items-center justify-between p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-my-neutral-300">
-            <h2 class="text-2xl font-bold text-my-neutral-900"> Stormblood </h2>
-            <svg class="w-8 h-8 text-my-neutral-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M11 3a1 1 0 100 2h2a1 1 0 100-2h-2zm-3 8a1 1 0 100 2h4a1 1 0 100-2H8zM5 15a1 1 0 100 2h10a1 1 0 100-2H5z"></path></svg>
-        </a>
-        
-        <a href="Shadowbringers.html" class="flex items-center justify-between p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-my-neutral-300">
-            <h2 class="text-2xl font-bold text-my-neutral-900"> Shadowbringers </h2>
-            <svg class="w-8 h-8 text-my-neutral-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M11 3a1 1 0 100 2h2a1 1 0 100-2h-2zm-3 8a1 1 0 100 2h4a1 1 0 100-2H8zM5 15a1 1 0 100 2h10a1 1 0 100-2H5z"></path></svg>
+
+        <a href="A_Realm_Reborn.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
+            <div>
+                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">⚔️ A Realm Reborn</h2>
+                <p class="text-sm text-my-neutral-500">신생 에오르제아</p>
+            </div>
         </a>
 
-        <a href="Endwalker.html" class="flex items-center justify-between p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-my-neutral-300">
-            <h2 class="text-2xl font-bold text-my-neutral-900"> Endwalker </h2>
-            <svg class="w-8 h-8 text-my-neutral-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M11 3a1 1 0 100 2h2a1 1 0 100-2h-2zm-3 8a1 1 0 100 2h4a1 1 0 100-2H8zM5 15a1 1 0 100 2h10a1 1 0 100-2H5z"></path></svg>
+        <a href="Heavensward.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
+            <div>
+                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">🐉 Heavensward</h2>
+                <p class="text-sm text-my-neutral-500">창천의 이슈가르드</p>
+            </div>
+        </a>
+        
+
+        <a href="Stormblood.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
+            <div>
+                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">🌊 Stormblood</h2>
+                <p class="text-sm text-my-neutral-500">홍련의 해방자</p>
+            </div>
         </a>
 
-        <a href="Dawntrail.html" class="flex items-center justify-between p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-my-neutral-300">
-            <h2 class="text-2xl font-bold text-my-neutral-900"> Dawntrail </h2>
-            <svg class="w-8 h-8 text-my-neutral-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M11 3a1 1 0 100 2h2a1 1 0 100-2h-2zm-3 8a1 1 0 100 2h4a1 1 0 100-2H8zM5 15a1 1 0 100 2h10a1 1 0 100-2H5z"></path></svg>
+        <a href="Shadowbringers.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
+            <div>
+                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">🌑 Shadowbringers</h2>
+                <p class="text-sm text-my-neutral-500">칠흑의 반역자</p>
+            </div>
+        </a>
+
+        <a href="Endwalker.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
+            <div>
+                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">🌠 Endwalker</h2>
+                <p class="text-sm text-my-neutral-500">효월의 종언</p>
+            </div>
+        </a>
+        
+        <a href="Dawntrail.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
+            <div>
+                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">☀️ Dawntrail</h2>
+                <p class="text-sm text-my-neutral-500">황금의 유산</p>
+            </div>
         </a>
         
     </div>
 
     <script>
-        // --- 날짜 및 시간 기능 스크립트 (메인 페이지에 유지) ---
+        // --- 날짜 및 시간 기능 스크립트 ---
         window.addEventListener('DOMContentLoaded', () => {
             const timeDisplay = document.getElementById('time-display');
             const dateDisplay = document.getElementById('date-display');
 
             function updateTime() {
-                if (timeDisplay && dateDisplay) {
-                    const now = new Date();
-                    const timeOptions = {
-                        timeZone: 'Asia/Seoul',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        second: '2-digit',
-                        hour12: false
-                    };
-                    const dateOptions = {
-                        timeZone: 'Asia/Seoul',
-                        dateStyle: 'full'
-                    };
-                    
-                    timeDisplay.textContent = now.toLocaleTimeString('ko-KR', timeOptions);
-                    dateDisplay.textContent = now.toLocaleDateString('ko-KR', dateOptions);
-                }
+                // 현재 시간을 한국 표준시(KST)로 표시
+                const now = new Date();
+                const timeOptions = {
+                    timeZone: 'Asia/Seoul',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: false
+                };
+                const dateOptions = {
+                    timeZone: 'Asia/Seoul',
+                    year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'long'
+                };
+                
+                timeDisplay.textContent = now.toLocaleTimeString('ko-KR', timeOptions);
+                dateDisplay.textContent = now.toLocaleDateString('ko-KR', dateOptions);
             }
 
             updateTime();
