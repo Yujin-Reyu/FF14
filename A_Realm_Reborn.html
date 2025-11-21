@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Realm Reborn: 사진첩 </title>
+    <title>A Realm Reborn: 사진첩</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -19,6 +19,8 @@
                             700: '#4A4A4A',
                             900: '#212121',
                         },
+                        'chat-left': '#E0F2FE', // Light Blue for left messages
+                        'chat-right': '#F0F0F0', // Light Gray for right messages
                     },
                     boxShadow: {
                         'custom': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 0 10px rgba(0, 0, 0, 0.05)',
@@ -37,6 +39,17 @@
             font-family: 'Nunito', sans-serif;
             background-color: #F5F5F5;
         }
+        /* 스크롤바 커스터마이징 (선택 사항) */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #c4c4c4;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f5f5f5;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center p-6">
@@ -52,7 +65,6 @@
             <p class="text-my-neutral-700 mt-2 text-xl">
                 에오르제아에서의 첫 걸음
             </p>
-            
         </header>
 
         <!-- 갤러리 컨테이너 -->
@@ -61,7 +73,7 @@
             <!-- 1. 첫 번째 사진 섹션 (Photo ID: photo-1) -->
             <div class="photo-group space-y-4" data-photo-id="photo-1">
                 <h2 class="text-3xl font-bold text-my-neutral-700 border-l-4 border-yellow-500 pl-3">
-                    [Photo 1] 제목
+                    [Photo 1] 에오르제아의 영웅들
                 </h2>
                 
                 <!-- 사진 크기: max-w-lg (최대 512px) -->
@@ -73,17 +85,41 @@
                             class="w-full h-auto rounded-lg shadow-lg"
                             onerror="this.onerror=null; this.src='https://placehold.co/1200x675/6b7280/FFFFFF/png?text=Image+Load+Failed';"
                         >
-                        <p class="text-center text-my-neutral-500 mt-3 italic">
-                            설명란
+                        <p class="text-center text-my-neutral-500 mt-3 italic" id="description-photo-1">
+                            울다하 광장에서의 첫 만남을 기억하시나요?
                         </p>
                     </div>
+                </div>
+
+                <!-- 대화형 메모 섹션 -->
+                <div class="memo-system-wrapper w-full max-w-lg mx-auto space-y-3 p-4 bg-my-neutral-100 rounded-xl border border-my-neutral-300">
+                    <h3 class="text-xl font-semibold text-my-neutral-700 border-b pb-2 mb-2">나만의 대화 메모 (사적인 기록)</h3>
+                    
+                    <!-- 메시지 표시 영역 -->
+                    <div id="chat-messages-photo-1" class="custom-scrollbar h-64 overflow-y-auto p-4 space-y-3 bg-white rounded-lg border border-my-neutral-200 shadow-inner">
+                        <p class="text-center text-my-neutral-500 text-sm">메모를 시작하세요. 이전 메시지는 브라우저에 저장됩니다.</p>
+                    </div>
+
+                    <!-- 메모 입력 및 전송 폼 -->
+                    <div class="flex space-x-2 pt-2 border-t border-my-neutral-300">
+                        <textarea id="new-message-photo-1" 
+                                class="flex-grow p-3 border border-my-neutral-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 transition duration-150 resize-none" 
+                                rows="2" 
+                                placeholder="새로운 메모를 입력하세요..."></textarea>
+                        <button 
+                            data-photo-id="photo-1"
+                            class="add-message-button bg-blue-600 text-white font-semibold px-6 py-2 rounded-xl hover:bg-blue-700 transition duration-200 shadow-md whitespace-nowrap">
+                            보내기
+                        </button>
+                    </div>
+                    <p id="save-status-photo-1" class="text-sm text-center text-green-600 hidden"></p>
                 </div>
             </div>
 
             <!-- 2. 두 번째 사진 섹션 (Photo ID: photo-2) -->
             <div class="photo-group space-y-4" data-photo-id="photo-2">
                 <h2 class="text-3xl font-bold text-my-neutral-700 border-l-4 border-yellow-500 pl-3">
-                    [Photo 2] 제목
+                    [Photo 2] 바하무트 레이드
                 </h2>
                 
                 <!-- 사진 크기: max-w-lg (최대 512px) -->
@@ -95,17 +131,185 @@
                             class="w-full h-auto rounded-lg shadow-lg"
                             onerror="this.onerror=null; this.src='https://placehold.co/1200x675/6b7280/FFFFFF/png?text=Image+Load+Failed';"
                         >
-                        <p class="text-center text-my-neutral-500 mt-3 italic">
-                            설명란
+                        <p class="text-center text-my-neutral-500 mt-3 italic" id="description-photo-2">
+                            어려웠던 바하무트 토벌전에 대한 기억은?
                         </p>
                     </div>
+                </div>
+
+                <!-- 대화형 메모 섹션 -->
+                <div class="memo-system-wrapper w-full max-w-lg mx-auto space-y-3 p-4 bg-my-neutral-100 rounded-xl border border-my-neutral-300">
+                    <h3 class="text-xl font-semibold text-my-neutral-700 border-b pb-2 mb-2">나만의 대화 메모 (사적인 기록)</h3>
+                    
+                    <!-- 메시지 표시 영역 -->
+                    <div id="chat-messages-photo-2" class="custom-scrollbar h-64 overflow-y-auto p-4 space-y-3 bg-white rounded-lg border border-my-neutral-200 shadow-inner">
+                        <p class="text-center text-my-neutral-500 text-sm">메모를 시작하세요. 이전 메시지는 브라우저에 저장됩니다.</p>
+                    </div>
+
+                    <!-- 메모 입력 및 전송 폼 -->
+                    <div class="flex space-x-2 pt-2 border-t border-my-neutral-300">
+                        <textarea id="new-message-photo-2" 
+                                class="flex-grow p-3 border border-my-neutral-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 transition duration-150 resize-none" 
+                                rows="2" 
+                                placeholder="새로운 메모를 입력하세요..."></textarea>
+                        <button 
+                            data-photo-id="photo-2"
+                            class="add-message-button bg-blue-600 text-white font-semibold px-6 py-2 rounded-xl hover:bg-blue-700 transition duration-200 shadow-md whitespace-nowrap">
+                            보내기
+                        </button>
+                    </div>
+                    <p id="save-status-photo-2" class="text-sm text-center text-green-600 hidden"></p>
                 </div>
             </div>
             
         </section>
 
     </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const addButtons = document.querySelectorAll('.add-message-button');
 
+            /**
+             * 로컬 저장소에서 메시지 배열을 로드합니다.
+             * @param {string} photoId - 메모의 고유 키를 구성하는 사진 ID
+             * @returns {Array<Object>} 로드된 메시지 배열 또는 빈 배열
+             */
+            function loadMessages(photoId) {
+                const savedData = localStorage.getItem(`chat-memo-${photoId}`);
+                try {
+                    return savedData ? JSON.parse(savedData) : [];
+                } catch (e) {
+                    console.error("Failed to parse chat data:", e);
+                    return [];
+                }
+            }
+
+            /**
+             * 메시지 배열을 로컬 저장소에 저장합니다.
+             * @param {string} photoId - 메모의 고유 키를 구성하는 사진 ID
+             * @param {Array<Object>} messages - 저장할 메시지 배열
+             */
+            function saveMessages(photoId, messages) {
+                try {
+                    localStorage.setItem(`chat-memo-${photoId}`, JSON.stringify(messages));
+                } catch (e) {
+                    console.error("Failed to save chat data:", e);
+                    showStatus(photoId, '오류: 저장 공간이 부족합니다.', 'text-red-600');
+                }
+            }
+
+            /**
+             * 메시지 상태 메시지를 표시합니다.
+             */
+            function showStatus(photoId, message, colorClass = 'text-green-600') {
+                const statusMessage = document.getElementById(`save-status-${photoId}`);
+                if (statusMessage) {
+                    statusMessage.textContent = message;
+                    statusMessage.className = `text-sm text-center ${colorClass}`;
+                    statusMessage.classList.remove('hidden');
+                    
+                    setTimeout(() => {
+                        statusMessage.classList.add('hidden');
+                    }, 2000);
+                }
+            }
+
+            /**
+             * 메시지 배열을 기반으로 채팅 창을 렌더링합니다.
+             * @param {string} photoId - 사진 ID
+             * @param {Array<Object>} messages - 표시할 메시지 배열
+             */
+            function renderMessages(photoId, messages) {
+                const chatContainer = document.getElementById(`chat-messages-${photoId}`);
+                if (!chatContainer) return;
+
+                chatContainer.innerHTML = ''; 
+
+                if (messages.length === 0) {
+                    chatContainer.innerHTML = '<p class="text-center text-my-neutral-500 text-sm">메모를 시작하세요. 이전 메시지는 브라우저에 저장됩니다.</p>';
+                    return;
+                }
+
+                messages.forEach((message, index) => {
+                    // 인덱스를 사용하여 좌우 번갈아 가며 정렬 (짝수: 왼쪽, 홀수: 오른쪽)
+                    const isLeft = index % 2 === 0;
+                    
+                    const alignment = isLeft ? 'justify-start' : 'justify-end';
+                    const bubbleBg = isLeft ? 'bg-chat-left' : 'bg-chat-right'; // Left: Light Blue, Right: Light Gray
+
+                    const messageWrapper = document.createElement('div');
+                    messageWrapper.className = `flex ${alignment}`;
+                    
+                    const messageBubble = document.createElement('div');
+                    messageBubble.className = `max-w-[80%] p-3 rounded-xl shadow-sm ${bubbleBg} text-my-neutral-900 break-words`;
+                    messageBubble.textContent = message.text;
+
+                    messageWrapper.appendChild(messageBubble);
+                    chatContainer.appendChild(messageWrapper);
+                });
+
+                // 스크롤을 항상 맨 아래로 이동
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+
+            /**
+             * 새 메모를 배열에 추가하고 저장 및 렌더링합니다.
+             * @param {string} photoId - 사진 ID
+             */
+            function addMessage(photoId) {
+                const inputArea = document.getElementById(`new-message-${photoId}`);
+                const messageText = inputArea ? inputArea.value.trim() : '';
+
+                if (messageText === '') {
+                    showStatus(photoId, '내용을 입력해주세요.', 'text-red-600');
+                    return;
+                }
+
+                const messages = loadMessages(photoId);
+                
+                // 새 메시지 객체 생성
+                const newMessage = {
+                    text: messageText,
+                    timestamp: Date.now() 
+                };
+
+                messages.push(newMessage);
+                
+                saveMessages(photoId, messages);
+                renderMessages(photoId, messages);
+                
+                // 입력 필드 초기화
+                inputArea.value = '';
+                showStatus(photoId, '메모가 추가되었습니다!');
+            }
+
+            // 페이지 로드 시 모든 메모 로드 및 이벤트 리스너 추가
+            addButtons.forEach(button => {
+                const photoId = button.getAttribute('data-photo-id');
+                
+                // 1. 메모 로드 및 렌더링
+                const initialMessages = loadMessages(photoId);
+                renderMessages(photoId, initialMessages);
+
+                // 2. 버튼 클릭 시 메시지 추가
+                button.addEventListener('click', () => {
+                    addMessage(photoId);
+                });
+
+                // 3. 엔터 키 입력 시 메시지 추가 (Shift + Enter는 줄 바꿈 허용)
+                const inputArea = document.getElementById(`new-message-${photoId}`);
+                if (inputArea) {
+                    inputArea.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' && !e.shiftKey) {
+                            e.preventDefault(); // 기본 Enter 동작(폼 제출) 방지
+                            addMessage(photoId);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
     
 </body>
 </html>
