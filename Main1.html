@@ -34,12 +34,11 @@
     <style>
         body {
             font-family: 'Nunito', sans-serif;
-            /* 검정/흰색 분위기를 위해 단순한 밝은 회색 배경으로 변경 */
             background-color: #E0E0E0; 
         }
 
         #time-widget {
-            /* (기존 시간 위젯 스타일 유지) */
+            /* 🚩 깃허브 레포지토리의 Header.png 파일로 경로 설정 (이미지 로드 실패 시 투명 배경 사용) */
             background-image: url('Header.png'); 
             background-color: transparent; 
             background-size: cover; 
@@ -54,7 +53,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 350px; 
+            min-height: 350px; /* 이미지 높이에 맞게 조정 */
         }
         
         #time-widget::before {
@@ -74,9 +73,8 @@
             text-shadow: 1px 1px 5px rgba(0,0,0,0.8); 
         }
 
-        /* ---------------------- 모노톤 음악 위젯 스타일 ---------------------- */
+        /* ---------------------- 음악 위젯 스타일 ---------------------- */
         #music-widget {
-            /* 순수 흰색 배경과 깔끔한 그림자 */
             background: #FFFFFF; 
             border-radius: 1.5rem;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
@@ -90,17 +88,17 @@
             margin: 0 auto 1.5rem;
             border-radius: 50%;
             overflow: hidden;
-            /* 모노톤 그림자 효과 */
+            background-color: #000000; /* CD 배경을 검정색으로 */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
         }
 
-        /* 이미지 (자리 표시자) */
+        /* 이미지 (Black_Cat.png) */
         .album-art-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            /* 이미지의 색상을 약간 낮춰 모노톤에 맞춤 */
-            filter: grayscale(30%) brightness(0.8);
+            /* 이전 grayscale 필터 제거 */
+            filter: none; 
         }
         
         /* 중앙 원의 색상을 흰색으로 유지 */
@@ -113,19 +111,19 @@
             height: 48px;
             background-color: #FFFFFF;
             border-radius: 50%;
+            z-index: 10; /* 이미지가 덮히지 않도록 z-index 추가 */
         }
 
         /* 플레이어 컨트롤 버튼 */
         .player-controls i {
             font-size: 1.5rem;
-            color: #4A4A4A; /* Dark gray */
+            color: #4A4A4A; 
             transition: color 0.2s;
             cursor: pointer;
         }
         .player-controls i:hover {
-            color: #212121; /* Black hover effect */
+            color: #212121; 
         }
-        /* ---------------------------------------------------------------- */
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-6">
@@ -137,7 +135,7 @@
     
     <div id="music-widget" class="mb-12 w-full max-w-sm p-8 flex flex-col items-center text-center">
         <div class="album-art-container">
-            <img src="Header.png" alt="Album Art Placeholder" class="rounded-full">
+            <img src="Black_Cat.png" alt="Album Art Placeholder" class="rounded-full"> 
             <div class="center-dot"></div>
         </div>
 
@@ -145,15 +143,13 @@
         <p class="text-sm text-my-neutral-500 mb-6">Lorem ipsum dolor, sit ament consecutur adipisicing.</p>
 
         <div class="player-controls flex space-x-8">
-            <i class="fas fa-backward"></i> 
-            <i class="fas fa-pause"></i> 
+            <i class="fas fa-backward-step"></i> <i class="fas fa-pause"></i> 
             <i class="fas fa-play"></i>
-            <i class="fas fa-forward"></i>
-            <i class="fas fa-redo-alt"></i>
+            <i class="fas fa-forward-step"></i> <i class="fas fa-redo-alt"></i>
         </div>
     </div>
-            <div class="w-full max-w-4xl grid grid-cols-1 sm:grid-cols-2 gap-4">
-        
+    
+    <div class="w-full max-w-4xl grid grid-cols-1 sm:grid-cols-2 gap-4 mx-auto">
         <a href="A_Realm_Reborn.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
             <div>
                 <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">💎 A Realm Reborn</h2>
@@ -168,7 +164,7 @@
             </div>
         </a>
         
-                <a href="Stormblood.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
+        <a href="Stormblood.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
             <div>
                 <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">⚔️ Stormblood</h2>
                 <p class="text-sm text-my-neutral-500">홍련의 해방자</p>
@@ -178,7 +174,6 @@
         <a href="Shadowbringers.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
             <div>
                 <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">🌑 Shadowbringers</h2>
-                <p class="text-sm text-my-neutral-500">칠흑의 반역자</p>
             </div>
         </a>
 
@@ -192,7 +187,6 @@
         <a href="Dawntrail.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
             <div>
                 <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">☀️ Dawntrail</h2>
-                <p class="text-sm text-my-neutral-500">황금의 유산</p>
             </div>
         </a>
         
