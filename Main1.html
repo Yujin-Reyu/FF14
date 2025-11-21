@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Realm Reborn: 갤러리 및 사진별 댓글</title>
+    <title>우리들의 모험담</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -11,7 +11,6 @@
             theme: {
                 extend: {
                     colors: {
-                        // 메인 페이지에서 정의된 커스텀 색상 팔레트 유지
                         'my-neutral': {
                             50: '#FDFDFD',
                             100: '#F5F5F5',
@@ -20,9 +19,6 @@
                             700: '#4A4A4A',
                             900: '#212121',
                         },
-                    },
-                    boxShadow: {
-                        'custom': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 0 10px rgba(0, 0, 0, 0.05)',
                     }
                 }
             }
@@ -31,343 +27,127 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
         body {
             font-family: 'Nunito', sans-serif;
-            background-color: #F5F5F5;
+            background-color: #E0E0E0;
         }
-        .comment-item {
-            border-left: 4px solid theme('colors.blue.500');
+
+        #time-widget {
+            /* 🚩 깃허브 레포지토리의 Header.png 파일로 경로 설정 */
+            background-image: url('Header.png'); 
+            
+            background-color: transparent; 
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat; 
+            border-radius: 1rem; 
+            padding: 2rem; 
+            box-shadow: 0 10px 15px rgba(0,0,0,0.2); 
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 250px; 
         }
-        /* 로딩 스피너 애니메이션 */
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        
+        /* 텍스트 가독성을 위한 반투명 오버레이 */
+        #time-widget::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.4); 
+            z-index: 1; 
+            border-radius: 1rem; 
         }
-        .spinner {
-            display: inline-block;
-            width: 1rem;
-            height: 1rem;
-            border: 2px solid theme('colors.blue.300');
-            border-top-color: theme('colors.blue.600');
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
+
+        /* 시계 텍스트 스타일 (흰색, 오버레이 위) */
+        #time-widget #time-display, 
+        #time-widget #date-display {
+            position: relative;
+            z-index: 2;
+            color: #FFFFFF; 
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.8); 
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center p-6">
+<body class="min-h-screen flex flex-col items-center justify-center p-6">
 
-    <!-- 메인 컨테이너 최대 너비를 max-w-4xl에서 max-w-6xl로 확장 -->
-    <div class="w-full max-w-6xl bg-white p-8 rounded-2xl shadow-xl space-y-12">
-        
-        <header class="text-center pb-4 border-b border-my-neutral-300">
-            <a href="index.html" class="text-blue-600 hover:text-blue-800 transition duration-150 text-sm font-semibold inline-block mb-2">← 목록으로 돌아가기</a>
-            <h1 class="text-5xl font-extrabold text-my-neutral-900 leading-tight">
-                A Realm Reborn (ARR) 갤러리
-            </h1>
-            <p class="text-my-neutral-700 mt-2 text-xl">
-                에오르제아의 재건과 추억을 사진별로 공유해보세요.
-            </p>
-            <div id="auth-status" class="mt-4 text-sm text-my-neutral-500">
-                인증 상태: <span id="user-id-display" class="font-mono text-blue-600">불러오는 중...</span>
-            </div>
-        </header>
-
-        <!-- 갤러리 컨테이너: 각 섹션은 독립적인 댓글 시스템을 가집니다. -->
-        <section id="gallery-container" class="space-y-10">
-
-            <!-- 1. 첫 번째 사진 섹션 (Photo ID: photo-1) -->
-            <div class="photo-comment-group space-y-6" data-photo-id="photo-1">
-                <h2 class="text-3xl font-bold text-my-neutral-700 border-l-4 border-yellow-500 pl-3">
-                    [Photo 1] 에오르제아의 영웅들
-                </h2>
-                
-                <div class="bg-gray-100 p-4 rounded-xl shadow-custom">
-                    <img 
-                        src="https://placehold.co/1000x562/4CAF50/FFFFFF/png?text=ARR+Scene+1" 
-                        alt="A Realm Reborn Scene 1" 
-                        class="w-full h-auto rounded-lg shadow-lg"
-                        onerror="this.onerror=null; this.src='https://placehold.co/1000x562/6b7280/FFFFFF/png?text=Image+Load+Failed';"
-                    >
-                    <p class="text-center text-my-neutral-500 mt-3 italic">
-                        울다하 광장에서의 첫 만남을 기억하시나요?
-                    </p>
-                </div>
-
-                <!-- 댓글 시스템 -->
-                <div class="comment-system-wrapper space-y-4">
-                    <h3 class="text-2xl font-bold text-my-neutral-700 border-l-2 border-blue-500 pl-2">댓글 (실시간)</h3>
-                    
-                    <!-- 댓글 입력 폼 -->
-                    <form id="comment-form-photo-1" class="bg-my-neutral-100 p-5 rounded-xl shadow-inner space-y-3">
-                        <textarea 
-                            id="comment-text-photo-1" 
-                            class="w-full p-2 border border-my-neutral-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150 resize-y" 
-                            rows="2" 
-                            placeholder="이 장면에 대한 추억을 남겨주세요." 
-                            required></textarea>
-                        <button 
-                            type="submit" 
-                            id="post-button-photo-1"
-                            class="w-full bg-blue-600 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 transition duration-200 shadow-md disabled:bg-blue-400"
-                            disabled>
-                            댓글 달기
-                        </button>
-                    </form>
-
-                    <!-- 댓글 목록 -->
-                    <div id="comments-list-photo-1" class="space-y-3">
-                        <p id="loading-message-photo-1" class="text-center text-my-neutral-500 flex items-center justify-center gap-2">
-                            <span class="spinner"></span> 댓글을 불러오는 중...
-                        </p>
-                    </div>
-                    <div id="error-message-photo-1" class="text-red-500 text-sm text-center hidden p-3 bg-red-100 rounded-lg border border-red-300"></div>
-                </div>
-            </div>
-
-            <!-- 2. 두 번째 사진 섹션 (Photo ID: photo-2) -->
-            <div class="photo-comment-group space-y-6" data-photo-id="photo-2">
-                <h2 class="text-3xl font-bold text-my-neutral-700 border-l-4 border-yellow-500 pl-3">
-                    [Photo 2] 바하무트 레이드
-                </h2>
-                
-                <div class="bg-gray-100 p-4 rounded-xl shadow-custom">
-                    <img 
-                        src="https://placehold.co/1000x562/B71C1C/FFFFFF/png?text=ARR+Scene+2" 
-                        alt="A Realm Reborn Scene 2" 
-                        class="w-full h-auto rounded-lg shadow-lg"
-                        onerror="this.onerror=null; this.src='https://placehold.co/1000x562/6b7280/FFFFFF/png?text=Image+Load+Failed';"
-                    >
-                    <p class="text-center text-my-neutral-500 mt-3 italic">
-                        어려웠던 바하무트 토벌전에 대한 기억은?
-                    </p>
-                </div>
-
-                <!-- 댓글 시스템 -->
-                <div class="comment-system-wrapper space-y-4">
-                    <h3 class="text-2xl font-bold text-my-neutral-700 border-l-2 border-blue-500 pl-2">댓글 (실시간)</h3>
-                    
-                    <!-- 댓글 입력 폼 -->
-                    <form id="comment-form-photo-2" class="bg-my-neutral-100 p-5 rounded-xl shadow-inner space-y-3">
-                        <textarea 
-                            id="comment-text-photo-2" 
-                            class="w-full p-2 border border-my-neutral-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150 resize-y" 
-                            rows="2" 
-                            placeholder="이 장면에 대한 추억을 남겨주세요." 
-                            required></textarea>
-                        <button 
-                            type="submit" 
-                            id="post-button-photo-2"
-                            class="w-full bg-blue-600 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 transition duration-200 shadow-md disabled:bg-blue-400"
-                            disabled>
-                            댓글 달기
-                        </button>
-                    </form>
-
-                    <!-- 댓글 목록 -->
-                    <div id="comments-list-photo-2" class="space-y-3">
-                        <p id="loading-message-photo-2" class="text-center text-my-neutral-500 flex items-center justify-center gap-2">
-                            <span class="spinner"></span> 댓글을 불러오는 중...
-                        </p>
-                    </div>
-                    <div id="error-message-photo-2" class="text-red-500 text-sm text-center hidden p-3 bg-red-100 rounded-lg border border-red-300"></div>
-                </div>
-            </div>
-            
-        </section>
-
+    <div id="time-widget" class="mb-12 w-full max-w-sm font-semibold">
+        <span id="time-display" class="text-6xl font-extrabold">00:00:00</span>
+        <span id="date-display" class="text-xl mt-3">시간을 불러오는 중...</span>
     </div>
-    
-    <!-- Firebase SDK Imports -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, query, orderBy, addDoc, onSnapshot, serverTimestamp, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        let db;
-        let auth;
-        let currentUserId = null;
-
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+    <div class="w-full max-w-lg space-y-4">
         
-        const userIdDisplay = document.getElementById('user-id-display');
-
-        /**
-         * Firestore에서 실시간으로 댓글을 로드하고 렌더링
-         * @param {string} photoId - 댓글을 로드할 사진의 고유 ID
-         */
-        function loadComments(photoId) {
-            if (!db || !currentUserId) {
-                console.warn(`[${photoId}] Firestore 또는 사용자 ID를 사용할 수 없습니다.`);
-                return;
-            }
-
-            // 사진별로 컬렉션 경로 생성
-            const COMMENT_COLLECTION_PATH = `artifacts/${appId}/public/data/arr_comments_${photoId}`;
-            
-            // 사진별 UI 요소
-            const commentsList = document.getElementById(`comments-list-${photoId}`);
-            const loadingMessage = document.getElementById(`loading-message-${photoId}`);
-            const errorMessage = document.getElementById(`error-message-${photoId}`);
-
-            const commentsQuery = query(
-                collection(db, COMMENT_COLLECTION_PATH),
-                orderBy('timestamp', 'desc')
-            );
-
-            // 실시간 리스너 설정
-            onSnapshot(commentsQuery, (snapshot) => {
-                commentsList.innerHTML = '';
-                
-                if (loadingMessage) loadingMessage.classList.add('hidden');
-                
-                if (snapshot.empty) {
-                    commentsList.innerHTML = '<p class="text-center text-my-neutral-500 text-sm">아직 댓글이 없습니다. 첫 댓글을 남겨주세요!</p>';
-                    return;
-                }
-
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    const commentElement = document.createElement('div');
-                    commentElement.className = 'comment-item bg-my-neutral-50 p-3 rounded-lg shadow-sm';
-
-                    let timeString = '방금 전';
-                    if (data.timestamp && data.timestamp.toDate) {
-                        const date = data.timestamp.toDate();
-                        timeString = date.toLocaleString('ko-KR', {
-                            year: 'numeric', month: 'numeric', day: 'numeric', 
-                            hour: '2-digit', minute: '2-digit', hour12: false
-                        });
-                    }
-
-                    commentElement.innerHTML = `
-                        <p class="text-my-neutral-900 mb-1 whitespace-pre-wrap text-sm">${data.text}</p>
-                        <div class="flex justify-between items-center text-xs text-my-neutral-500 pt-1 border-t border-my-neutral-300 mt-1">
-                            <span class="font-semibold text-blue-600">ID: ${data.userId.substring(0, 8)}...</span>
-                            <span>${timeString}</span>
-                        </div>
-                    `;
-                    commentsList.appendChild(commentElement);
-                });
-            }, (error) => {
-                console.error(`[${photoId}] Error fetching comments:`, error);
-                if (errorMessage) {
-                    errorMessage.textContent = `댓글 로드 오류: ${error.message}`;
-                    errorMessage.classList.remove('hidden');
-                }
-            });
-        }
-
-        /**
-         * 사진별 댓글 제출 핸들러 초기화
-         * @param {string} photoId - 댓글을 제출할 사진의 고유 ID
-         */
-        function setupCommentForm(photoId) {
-            const form = document.getElementById(`comment-form-${photoId}`);
-            const commentTextarea = document.getElementById(`comment-text-${photoId}`);
-            const postButton = document.getElementById(`post-button-${photoId}`);
-            const errorMessage = document.getElementById(`error-message-${photoId}`);
-
-            if (!form) return;
-
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                
-                const commentText = commentTextarea.value.trim();
-                if (!commentText) return;
-                
-                if (!db || !currentUserId) {
-                    errorMessage.textContent = "데이터베이스 또는 사용자 인증이 준비되지 않았습니다.";
-                    errorMessage.classList.remove('hidden');
-                    return;
-                }
-                
-                postButton.disabled = true;
-                postButton.innerHTML = '<span class="spinner mr-2"></span> 게시 중...';
-
-                const COMMENT_COLLECTION_PATH = `artifacts/${appId}/public/data/arr_comments_${photoId}`;
-
-                try {
-                    await addDoc(collection(db, COMMENT_COLLECTION_PATH), {
-                        userId: currentUserId,
-                        text: commentText,
-                        timestamp: serverTimestamp()
-                    });
-
-                    commentTextarea.value = '';
-                    commentTextarea.focus();
-                    if (!errorMessage.classList.contains('hidden')) errorMessage.classList.add('hidden');
-
-                } catch (error) {
-                    console.error(`[${photoId}] Error posting comment:`, error);
-                    errorMessage.textContent = `댓글 저장 오류: ${error.message}`;
-                    errorMessage.classList.remove('hidden');
-                } finally {
-                    postButton.disabled = false;
-                    postButton.textContent = '댓글 달기';
-                }
-            });
-        }
+        <a href="A_Realm_Reborn.html" class="flex items-center justify-between p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-my-neutral-300">
+            <h2 class="text-2xl font-bold text-my-neutral-900"> A Realm Reborn ⚔️</h2>
+            <svg class="w-8 h-8 text-my-neutral-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1h-2V3a1 1 0 011-1zm3 8a3 3 0 11-6 0 3 3 0 016 0zM3 18a1 1 0 01-1-1v-2a2 2 0 012-2h12a2 2 0 012 2v2a1 1 0 01-1 1H3z" clip-rule="evenodd"></path></svg>
+        </a>
         
-        /**
-         * Firebase 및 인증 초기화
-         */
-        async function initFirebase() {
-            if (!firebaseConfig) {
-                console.error("Firebase config is missing.");
-                // 모든 오류 메시지 div에 적용
-                document.querySelectorAll('[id^="error-message"]').forEach(el => {
-                    el.textContent = "Firebase 설정이 누락되었습니다.";
-                    el.classList.remove('hidden');
-                });
-                return;
-            }
+        <a href="Heavensward.html" class="flex items-center justify-between p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-my-neutral-300">
+            <h2 class="text-2xl font-bold text-my-neutral-900"> Heavensward 🐉</h2>
+            <svg class="w-8 h-8 text-my-neutral-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.898.552L7.382 10H5.5a.5.5 0 000 1h2.382l1.72 2.448A1 1 0 0010 14a1 1 0 00.898-.552l1.72-2.448H14.5a.5.5 0 000-1h-1.882l-1.72-2.448A1 1 0 0010 7z" clip-rule="evenodd"></path></svg>
+        </a>
+        
+        <a href="Stormblood.html" class="flex items-center justify-between p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-my-neutral-300">
+            <h2 class="text-2xl font-bold text-my-neutral-900"> Stormblood 🌊</h2>
+            <svg class="w-8 h-8 text-my-neutral-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M11 3a1 1 0 100 2h2a1 1 0 100-2h-2zm-3 8a1 1 0 100 2h4a1 1 0 100-2H8zM5 15a1 1 0 100 2h10a1 1 0 100-2H5z"></path></svg>
+        </a>
+        
+        <a href="Shadowbringers.html" class="flex items-center justify-between p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-my-neutral-300">
+            <h2 class="text-2xl font-bold text-my-neutral-900"> Shadowbringers 🌑</h2>
+            <svg class="w-8 h-8 text-my-neutral-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M11 3a1 1 0 100 2h2a1 1 0 100-2h-2zm-3 8a1 1 0 100 2h4a1 1 0 100-2H8zM5 15a1 1 0 100 2h10a1 1 0 100-2H5z"></path></svg>
+        </a>
 
-            try {
-                const app = initializeApp(firebaseConfig);
-                db = getFirestore(app);
-                auth = getAuth(app);
-                setLogLevel('error');
+        <a href="Endwalker.html" class="flex items-center justify-between p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-my-neutral-300">
+            <h2 class="text-2xl font-bold text-my-neutral-900"> Endwalker 🌠</h2>
+            <svg class="w-8 h-8 text-my-neutral-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M11 3a1 1 0 100 2h2a1 1 0 100-2h-2zm-3 8a1 1 0 100 2h4a1 1 0 100-2H8zM5 15a1 1 0 100 2h10a1 1 0 100-2H5z"></path></svg>
+        </a>
 
-                if (initialAuthToken) {
-                    await signInWithCustomToken(auth, initialAuthToken);
-                } else {
-                    await signInAnonymously(auth);
-                }
+        <a href="Dawntrail.html" class="flex items-center justify-between p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-my-neutral-300">
+            <h2 class="text-2xl font-bold text-my-neutral-900"> Dawntrail ☀️</h2>
+            <svg class="w-8 h-8 text-my-neutral-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M11 3a1 1 0 100 2h2a1 1 0 100-2h-2zm-3 8a1 1 0 100 2h4a1 1 0 100-2H8zM5 15a1 1 0 100 2h10a1 1 0 100-2H5z"></path></svg>
+        </a>
+        
+    </div>
+
+    <script>
+        // --- 날짜 및 시간 기능 스크립트 ---
+        window.addEventListener('DOMContentLoaded', () => {
+            const timeDisplay = document.getElementById('time-display');
+            const dateDisplay = document.getElementById('date-display');
+
+            function updateTime() {
+                // 현재 시간을 한국 표준시(KST)로 표시
+                const now = new Date();
+                const timeOptions = {
+                    timeZone: 'Asia/Seoul',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: false
+                };
+                const dateOptions = {
+                    timeZone: 'Asia/Seoul',
+                    year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'long'
+                };
                 
-                onAuthStateChanged(auth, (user) => {
-                    currentUserId = user ? user.uid : crypto.randomUUID();
-                    const shortId = currentUserId.substring(0, 8);
-                    userIdDisplay.textContent = user ? `${shortId}... (인증됨)` : `${shortId}... (익명)`;
-                    
-                    // 모든 버튼 활성화
-                    document.querySelectorAll('[id^="post-button"]').forEach(btn => btn.disabled = false);
-
-                    // 모든 사진별 댓글 시스템 초기화
-                    const photoGroups = document.querySelectorAll('.photo-comment-group');
-                    photoGroups.forEach(group => {
-                        const photoId = group.getAttribute('data-photo-id');
-                        if (photoId) {
-                            loadComments(photoId);
-                            setupCommentForm(photoId);
-                        }
-                    });
-                });
-
-            } catch (error) {
-                console.error("Firebase Initialization or Auth Error:", error);
-                document.querySelectorAll('[id^="error-message"]').forEach(el => {
-                    el.textContent = `Firebase 오류: ${error.message}`;
-                    el.classList.remove('hidden');
-                });
+                timeDisplay.textContent = now.toLocaleTimeString('ko-KR', timeOptions);
+                dateDisplay.textContent = now.toLocaleDateString('ko-KR', dateOptions);
             }
-        }
 
-        window.addEventListener('DOMContentLoaded', initFirebase);
+            updateTime();
+            setInterval(updateTime, 1000);
+        });
     </script>
-    
+
 </body>
 </html>
