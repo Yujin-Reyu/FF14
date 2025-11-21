@@ -1,178 +1,169 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>우리들의 모험담</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'my-neutral': {
-                            50: '#FDFDFD',
-                            100: '#F5F5F5',
-                            300: '#E0E0E0',
-                            500: '#8A8A8A',
-                            700: '#4A4A4A',
-                            900: '#212121',
-                        },
-                    }
-                }
-            }
-        }
-    </script>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-    
-    <style>
-        body {
-            font-family: 'Nunito', sans-serif;
-            background-color: #E0E0E0;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>우리들의 모험담</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'my-neutral': {
+                            50: '#FDFDFD',
+                            100: '#F5F5F5',
+                            300: '#E0E0E0',
+                            500: '#8A8A8A',
+                            700: '#4A4A4A',
+                            900: '#212121',
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #E0E0E0;
+        }
 
-        #time-widget {
-            /* 🚩 깃허브 레포지토리의 Header.png 파일로 경로 설정 (이미지 로드 실패 시 투명 배경 사용) */
-            background-image: url('Header.png'); 
-            
-            background-color: transparent; 
-            background-size: cover; 
-            background-position: center; 
-            background-repeat: no-repeat; 
-            border-radius: 1rem; 
-            padding: 2rem; 
-            box-shadow: 0 10px 15px rgba(0,0,0,0.2); 
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 350px; 
-        }
-        
-        /* 텍스트 가독성을 위한 반투명 오버레이 */
-        #time-widget::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.4); 
-            z-index: 1; 
-            border-radius: 1rem; 
-        }
+        #time-widget {
+            /* 🚩 깃허브 레포지토리의 Header.png 파일로 경로 설정 (이미지 로드 실패 시 투명 배경 사용) */
+            background-image: url('Header.png'); 
+            
+            background-color: transparent; 
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat; 
+            border-radius: 1rem; 
+            padding: 2rem; 
+            box-shadow: 0 10px 15px rgba(0,0,0,0.2); 
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 350px; 
+        }
+        
+        /* 텍스트 가독성을 위한 반투명 오버레이 */
+        #time-widget::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.4); 
+            z-index: 1; 
+            border-radius: 1rem; 
+        }
 
-        /* 시계 텍스트 스타일 (흰색, 오버레이 위) */
-        #time-widget #time-display, 
-        #time-widget #date-display {
-            position: relative;
-            z-index: 2;
-            color: #FFFFFF; 
-            text-shadow: 1px 1px 5px rgba(0,0,0,0.8); 
-        }
-    </style>
+        /* 시계 텍스트 스타일 (흰색, 오버레이 위) */
+        #time-widget #time-display, 
+        #time-widget #date-display {
+            position: relative;
+            z-index: 2;
+            color: #FFFFFF; 
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.8); 
+        }
+    </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-6">
 
-    <div id="time-widget" class="mb-12 w-full max-w-2xl font-semibold">
-                <span id="time-display" class="text-6xl font-extrabold">00:00:00</span>
-        <span id="date-display" class="text-xl mt-3">시간을 불러오는 중...</span>
-    </div>
-    
-    <div id="youtube-player" class="mb-8 w-full max-w-2xl">
-        <iframe 
-            width="100%" 
-            height="150" 
-            src="https://www.youtube.com/embed/DxhXgeZKdTk?autoplay=1&controls=1&loop=1&playlist=DxhXgeZKdTk&showinfo=0&modestbranding=1&rel=0&fs=0" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen 
-            class="rounded-lg shadow-lg"
-        ></iframe>
+    <div id="time-widget" class="mb-12 w-full max-w-2xl font-semibold">
+        <!-- 위젯 제목 제거됨 -->
+        <span id="time-display" class="text-6xl font-extrabold">00:00:00</span>
+        <span id="date-display" class="text-xl mt-3">시간을 불러오는 중...</span>
     </div>
-            <div class="w-full max-w-4xl grid grid-cols-1 sm:grid-cols-2 gap-4">
-        
 
-        <a href="A_Realm_Reborn.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
-            <div>
-                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">💎 A Realm Reborn</h2>
-                <p class="text-sm text-my-neutral-500">신생 에오르제아</p>
-            </div>
-        </a>
+    <!-- 목록을 담을 컨테이너: 최대 너비를 4XL로 넓히고, Grid로 2열 설정 (sm 이상) -->
+    <div class="w-full max-w-4xl grid grid-cols-1 sm:grid-cols-2 gap-4">
+        
 
-        <a href="Heavensward.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
-            <div>
-                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">🐉 Heavensward</h2>
-                <p class="text-sm text-my-neutral-500">창천의 이슈가르드</p>
-            </div>
-        </a>
-        
+        <a href="A_Realm_Reborn.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
+            <div>
+                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">💎 A Realm Reborn</h2>
+                <p class="text-sm text-my-neutral-500">신생 에오르제아</p>
+            </div>
+        </a>
 
-        <a href="Stormblood.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
-            <div>
-                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">⚔️ Stormblood</h2>
-                <p class="text-sm text-my-neutral-500">홍련의 해방자</p>
-            </div>
-        </a>
+        <a href="Heavensward.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
+            <div>
+                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">🐉 Heavensward</h2>
+                <p class="text-sm text-my-neutral-500">창천의 이슈가르드</p>
+            </div>
+        </a>
+        
 
-        <a href="Shadowbringers.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
-            <div>
-                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">🌑 Shadowbringers</h2>
-                <p class="text-sm text-my-neutral-500">칠흑의 반역자</p>
-            </div>
-        </a>
+        <a href="Stormblood.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
+            <div>
+                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">⚔️ Stormblood</h2>
+                <p class="text-sm text-my-neutral-500">홍련의 해방자</p>
+            </div>
+        </a>
 
-        <a href="Endwalker.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
-            <div>
-                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">🌠 Endwalker</h2>
-                <p class="text-sm text-my-neutral-500">효월의 종언</p>
-            </div>
-        </a>
-        
-        <a href="Dawntrail.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
-            <div>
-                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">☀️ Dawntrail</h2>
-                <p class="text-sm text-my-neutral-500">황금의 유산</p>
-            </div>
-        </a>
-        
-    </div>
+        <a href="Shadowbringers.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
+            <div>
+                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">🌑 Shadowbringers</h2>
+                <p class="text-sm text-my-neutral-500">칠흑의 반역자</p>
+            </div>
+        </a>
 
-    <script>
-        // --- 날짜 및 시간 기능 스크립트 ---
-        window.addEventListener('DOMContentLoaded', () => {
-            const timeDisplay = document.getElementById('time-display');
-            const dateDisplay = document.getElementById('date-display');
+        <a href="Endwalker.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
+            <div>
+                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">🌠 Endwalker</h2>
+                <p class="text-sm text-my-neutral-500">효월의 종언</p>
+            </div>
+        </a>
+        
+        <a href="Dawntrail.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
+            <div>
+                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">☀️ Dawntrail</h2>
+                <p class="text-sm text-my-neutral-500">황금의 유산</p>
+            </div>
+        </a>
+        
+    </div>
 
-            function updateTime() {
-                // 현재 시간을 한국 표준시(KST)로 표시
-                const now = new Date();
-                const timeOptions = {
-                    timeZone: 'Asia/Seoul',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit',
-                    hour12: false
-                };
-                const dateOptions = {
-                    timeZone: 'Asia/Seoul',
-                    year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'long'
-                };
-                
-                timeDisplay.textContent = now.toLocaleTimeString('ko-KR', timeOptions);
-                dateDisplay.textContent = now.toLocaleDateString('ko-KR', dateOptions);
-            }
+    <script>
+        // --- 날짜 및 시간 기능 스크립트 ---
+        window.addEventListener('DOMContentLoaded', () => {
+            const timeDisplay = document.getElementById('time-display');
+            const dateDisplay = document.getElementById('date-display');
 
-            updateTime();
-            setInterval(updateTime, 1000);
-        });
-    </script>
+            function updateTime() {
+                // 현재 시간을 한국 표준시(KST)로 표시
+                const now = new Date();
+                const timeOptions = {
+                    timeZone: 'Asia/Seoul',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: false
+                };
+                const dateOptions = {
+                    timeZone: 'Asia/Seoul',
+                    year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'long'
+                };
+                
+                timeDisplay.textContent = now.toLocaleTimeString('ko-KR', timeOptions);
+                dateDisplay.textContent = now.toLocaleDateString('ko-KR', dateOptions);
+            }
+
+            updateTime();
+            setInterval(updateTime, 1000);
+        });
+    </script>
 
 </body>
 </html>
