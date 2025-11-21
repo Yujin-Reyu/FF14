@@ -29,16 +29,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <style>
         body {
             font-family: 'Nunito', sans-serif;
-            background-color: #E0E0E0;
+            /* 검정/흰색 분위기를 위해 단순한 밝은 회색 배경으로 변경 */
+            background-color: #E0E0E0; 
         }
 
         #time-widget {
-            /* 🚩 깃허브 레포지토리의 Header.png 파일로 경로 설정 (이미지 로드 실패 시 투명 배경 사용) */
+            /* (기존 시간 위젯 스타일 유지) */
             background-image: url('Header.png'); 
-            
             background-color: transparent; 
             background-size: cover; 
             background-position: center; 
@@ -55,20 +57,15 @@
             min-height: 350px; 
         }
         
-        /* 텍스트 가독성을 위한 반투명 오버레이 */
         #time-widget::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background-color: rgba(0, 0, 0, 0.4); 
             z-index: 1; 
             border-radius: 1rem; 
         }
 
-        /* 시계 텍스트 스타일 (흰색, 오버레이 위) */
         #time-widget #time-display, 
         #time-widget #date-display {
             position: relative;
@@ -76,11 +73,160 @@
             color: #FFFFFF; 
             text-shadow: 1px 1px 5px rgba(0,0,0,0.8); 
         }
+
+        /* ---------------------- 모노톤 음악 위젯 스타일 ---------------------- */
+        #music-widget {
+            /* 순수 흰색 배경과 깔끔한 그림자 */
+            background: #FFFFFF; 
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+        }
+
+        /* 중앙 이미지 컨테이너 */
+        .album-art-container {
+            position: relative;
+            width: 200px; 
+            height: 200px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            overflow: hidden;
+            /* 모노톤 그림자 효과 */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+        }
+
+        /* 이미지 (자리 표시자) */
+        .album-art-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* 이미지의 색상을 약간 낮춰 모노톤에 맞춤 */
+            filter: grayscale(30%) brightness(0.8);
+        }
+        
+        /* 중앙 원의 색상을 흰색으로 유지 */
+        .album-art-container .center-dot {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 48px;
+            height: 48px;
+            background-color: #FFFFFF;
+            border-radius: 50%;
+        }
+
+        /* 플레이어 컨트롤 버튼 */
+        .player-controls i {
+            font-size: 1.5rem;
+            color: #4A4A4A; /* Dark gray */
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+        .player-controls i:hover {
+            color: #212121; /* Black hover effect */
+        }
+        /* ---------------------------------------------------------------- */
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-6">
 
     <div id="time-widget" class="mb-12 w-full max-w-2xl font-semibold">
-                <span id="time-display" class="text-6xl font-extrabold">00:00:00</span>
+        <span id="time-display" class="text-6xl font-extrabold">00:00:00</span>
         <span id="date-display" class="text-xl mt-3">시간을 불러오는 중...</span>
     </div>
+    
+    <div id="music-widget" class="mb-12 w-full max-w-sm p-8 flex flex-col items-center text-center">
+        <div class="album-art-container">
+            <img src="Header.png" alt="Album Art Placeholder" class="rounded-full">
+            <div class="center-dot"></div>
+        </div>
+
+        <h2 class="text-3xl font-bold text-my-neutral-900 mb-1">Blizzards</h2>
+        <p class="text-sm text-my-neutral-500 mb-6">Lorem ipsum dolor, sit ament consecutur adipisicing.</p>
+
+        <div class="player-controls flex space-x-8">
+            <i class="fas fa-backward"></i> 
+            <i class="fas fa-pause"></i> 
+            <i class="fas fa-play"></i>
+            <i class="fas fa-forward"></i>
+            <i class="fas fa-redo-alt"></i>
+        </div>
+    </div>
+            <div class="w-full max-w-4xl grid grid-cols-1 sm:grid-cols-2 gap-4">
+        
+        <a href="A_Realm_Reborn.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
+            <div>
+                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">💎 A Realm Reborn</h2>
+                <p class="text-sm text-my-neutral-500">신생 에오르제아</p>
+            </div>
+        </a>
+
+        <a href="Heavensward.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
+            <div>
+                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">🐉 Heavensward</h2>
+                <p class="text-sm text-my-neutral-500">창천의 이슈가르드</p>
+            </div>
+        </a>
+        
+                <a href="Stormblood.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
+            <div>
+                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">⚔️ Stormblood</h2>
+                <p class="text-sm text-my-neutral-500">홍련의 해방자</p>
+            </div>
+        </a>
+
+        <a href="Shadowbringers.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
+            <div>
+                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">🌑 Shadowbringers</h2>
+                <p class="text-sm text-my-neutral-500">칠흑의 반역자</p>
+            </div>
+        </a>
+
+        <a href="Endwalker.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
+            <div>
+                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">🌠 Endwalker</h2>
+                <p class="text-sm text-my-neutral-500">효월의 종언</p>
+            </div>
+        </a>
+        
+        <a href="Dawntrail.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
+            <div>
+                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">☀️ Dawntrail</h2>
+                <p class="text-sm text-my-neutral-500">황금의 유산</p>
+            </div>
+        </a>
+        
+    </div>
+
+    <script>
+        // --- 날짜 및 시간 기능 스크립트 ---
+        window.addEventListener('DOMContentLoaded', () => {
+            const timeDisplay = document.getElementById('time-display');
+            const dateDisplay = document.getElementById('date-display');
+
+            function updateTime() {
+                // 현재 시간을 한국 표준시(KST)로 표시
+                const now = new Date();
+                const timeOptions = {
+                    timeZone: 'Asia/Seoul',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: false
+                };
+                const dateOptions = {
+                    timeZone: 'Asia/Seoul',
+                    year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'long'
+                };
+                
+                timeDisplay.textContent = now.toLocaleTimeString('ko-KR', timeOptions);
+                dateDisplay.textContent = now.toLocaleDateString('ko-KR', dateOptions);
+            }
+
+            updateTime();
+            setInterval(updateTime, 1000);
+        });
+    </script>
+
+</body>
+</html>
