@@ -29,16 +29,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <style>
         body {
             font-family: 'Nunito', sans-serif;
-            background-color: #E0E0E0; 
+            background-color: #E0E0E0;
         }
 
         #time-widget {
-            /* 🚩 깃허브 레포지토리의 Header.png 파일로 경로 설정 (이미지 로드 실패 시 투명 배경 사용) */
             background-image: url('Header.png'); 
             background-color: transparent; 
             background-size: cover; 
@@ -53,13 +52,16 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 350px; /* 이미지 높이에 맞게 조정 */
+            min-height: 350px; 
         }
         
         #time-widget::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background-color: rgba(0, 0, 0, 0.4); 
             z-index: 1; 
             border-radius: 1rem; 
@@ -78,9 +80,9 @@
             background: #FFFFFF; 
             border-radius: 1.5rem;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+            margin-bottom: 2.5rem; /* 시간 위젯과 목록 사이 간격 조정 */
         }
 
-        /* 중앙 이미지 컨테이너 */
         .album-art-container {
             position: relative;
             width: 200px; 
@@ -88,20 +90,17 @@
             margin: 0 auto 1.5rem;
             border-radius: 50%;
             overflow: hidden;
-            background-color: #000000; /* CD 배경을 검정색으로 */
+            background-color: #000000; /* CD 배경 검정색 */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
         }
 
-        /* 이미지 (Black_Cat.png) */
         .album-art-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            /* 이전 grayscale 필터 제거 */
             filter: none; 
         }
         
-        /* 중앙 원의 색상을 흰색으로 유지 */
         .album-art-container .center-dot {
             position: absolute;
             top: 50%;
@@ -111,10 +110,9 @@
             height: 48px;
             background-color: #FFFFFF;
             border-radius: 50%;
-            z-index: 10; /* 이미지가 덮히지 않도록 z-index 추가 */
+            z-index: 10;
         }
 
-        /* 플레이어 컨트롤 버튼 */
         .player-controls i {
             font-size: 1.5rem;
             color: #4A4A4A; 
@@ -123,6 +121,19 @@
         }
         .player-controls i:hover {
             color: #212121; 
+        }
+
+        /* 확장팩 목록 아이콘 스타일 */
+        .expansion-icon {
+            font-size: 1.25rem; /* 아이콘 크기 조정 */
+            color: #8A8A8A; /* 기본 회색 */
+            margin-right: 0.75rem; /* 텍스트와의 간격 */
+        }
+        .expansion-icon.music {
+            color: #4A4A4A; /* 음악 아이콘 색상 (다른 아이콘과 다르게) */
+        }
+        .group:hover .expansion-icon.music {
+            color: #212121; /* 호버 시 더 어둡게 */
         }
     </style>
 </head>
@@ -133,7 +144,7 @@
         <span id="date-display" class="text-xl mt-3">시간을 불러오는 중...</span>
     </div>
     
-    <div id="music-widget" class="mb-12 w-full max-w-sm p-8 flex flex-col items-center text-center">
+    <div id="music-widget" class="w-full max-w-sm p-8 flex flex-col items-center text-center">
         <div class="album-art-container">
             <img src="Black_Cat.png" alt="Album Art Placeholder" class="rounded-full"> 
             <div class="center-dot"></div>
@@ -143,9 +154,9 @@
         <p class="text-sm text-my-neutral-500 mb-6">Lorem ipsum dolor, sit ament consecutur adipisicing.</p>
 
         <div class="player-controls flex space-x-8">
-            <i class="fas fa-backward-step"></i> <i class="fas fa-pause"></i> 
+            <i class="fas fa-backward"></i> <i class="fas fa-pause"></i> 
             <i class="fas fa-play"></i>
-            <i class="fas fa-forward-step"></i> <i class="fas fa-redo-alt"></i>
+            <i class="fas fa-forward"></i> <i class="fas fa-redo-alt"></i>
         </div>
     </div>
     
@@ -153,40 +164,42 @@
         <a href="A_Realm_Reborn.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
             <div>
                 <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">💎 A Realm Reborn</h2>
-                <p class="text-sm text-my-neutral-500">신생 에오르제아</p>
+                <p class="text-sm text-my-neutral-500">신생 에오르제아 <i class="fas fa-music expansion-icon music"></i></p>
             </div>
         </a>
 
         <a href="Heavensward.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
             <div>
                 <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">🐉 Heavensward</h2>
-                <p class="text-sm text-my-neutral-500">창천의 이슈가르드</p>
+                <p class="text-sm text-my-neutral-500">창천의 이슈가르드 <i class="fas fa-music expansion-icon music"></i></p>
             </div>
         </a>
         
         <a href="Stormblood.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
             <div>
                 <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">⚔️ Stormblood</h2>
-                <p class="text-sm text-my-neutral-500">홍련의 해방자</p>
+                <p class="text-sm text-my-neutral-500">홍련의 해방자 <i class="fas fa-music expansion-icon music"></i></p>
             </div>
         </a>
 
         <a href="Shadowbringers.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
             <div>
                 <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">🌑 Shadowbringers</h2>
+                <p class="text-sm text-my-neutral-500">칠흑의 반역자 <i class="fas fa-music expansion-icon music"></i></p>
             </div>
         </a>
 
         <a href="Endwalker.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
             <div>
                 <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">🌠 Endwalker</h2>
-                <p class="text-sm text-my-neutral-500">효월의 종언</p>
+                <p class="text-sm text-my-neutral-500">효월의 종언 <i class="fas fa-music expansion-icon music"></i></p>
             </div>
         </a>
         
         <a href="Dawntrail.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
             <div>
                 <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">☀️ Dawntrail</h2>
+                <p class="text-sm text-my-neutral-500">황금의 유산 <i class="fas fa-music expansion-icon music"></i></p>
             </div>
         </a>
         
