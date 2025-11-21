@@ -33,13 +33,14 @@
         body {
             font-family: 'Nunito', sans-serif;
             background-color: #E0E0E0;
+            /* 페이지 하단 오디오 플레이어 공간 확보 */
+            padding-bottom: 120px; 
         }
 
         #time-widget {
-            /* 🚩 깃허브 레포지토리의 Header.png 파일로 경로 설정 (이미지 로드 실패 시 투명 배경 사용) */
+            /* 🛠️ 수정: 이미지가 없을 때를 대비해 어두운 배경색 지정 */
+            background-color: #2d3748; 
             background-image: url('Header.png'); 
-            
-            background-color: transparent; 
             background-size: cover; 
             background-position: center; 
             background-repeat: no-repeat; 
@@ -55,7 +56,6 @@
             min-height: 350px; 
         }
         
-        /* 텍스트 가독성을 위한 반투명 오버레이 */
         #time-widget::before {
             content: '';
             position: absolute;
@@ -65,10 +65,8 @@
             bottom: 0;
             background-color: rgba(0, 0, 0, 0.4); 
             z-index: 1; 
-            border-radius: 1rem; 
         }
 
-        /* 시계 텍스트 스타일 (흰색, 오버레이 위) */
         #time-widget #time-display, 
         #time-widget #date-display {
             position: relative;
@@ -76,85 +74,80 @@
             color: #FFFFFF; 
             text-shadow: 1px 1px 5px rgba(0,0,0,0.8); 
         }
+
+        /* 오디오 플레이어 커스텀 스타일 */
+        audio {
+            width: 100%;
+            height: 30px;
+            border-radius: 0;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-6">
 
+    
+
     <div id="time-widget" class="mb-12 w-full max-w-2xl font-semibold">
-        <!-- 위젯 제목 제거됨 -->
-        <span id="time-display" class="text-6xl font-extrabold">00:00:00</span>
-        <span id="date-display" class="text-xl mt-3">시간을 불러오는 중...</span>
+        <span id="time-display" class="text-6xl font-extrabold tracking-wider">00:00:00</span>
+        <span id="date-display" class="text-xl mt-3 opacity-90">시간을 불러오는 중...</span>
     </div>
 
-    <!-- 목록을 담을 컨테이너: 최대 너비를 4XL로 넓히고, Grid로 2열 설정 (sm 이상) -->
-    <div class="w-full max-w-4xl grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <div class="w-full max-w-4xl grid grid-cols-1 sm:grid-cols-2 gap-5 mb-8">
         
-
-        <a href="A_Realm_Reborn.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
-            <div>
-                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">💎 A Realm Reborn</h2>
-                <p class="text-sm text-my-neutral-500">신생 에오르제아</p>
+        <a href="A_Realm_Reborn.html" class="flex items-center p-5 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 border-l-4 border-transparent hover:border-blue-500 group">
+            <div class="ml-2">
+                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700 transition-colors">💎 A Realm Reborn</h2>
+                <p class="text-sm text-my-neutral-500 font-medium mt-1">신생 에오르제아</p>
             </div>
         </a>
 
-        <a href="Heavensward.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
-            <div>
-                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">🐉 Heavensward</h2>
-                <p class="text-sm text-my-neutral-500">창천의 이슈가르드</p>
+        <a href="Heavensward.html" class="flex items-center p-5 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 border-l-4 border-transparent hover:border-blue-800 group">
+            <div class="ml-2">
+                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-800 transition-colors">🐉 Heavensward</h2>
+                <p class="text-sm text-my-neutral-500 font-medium mt-1">창천의 이슈가르드</p>
             </div>
         </a>
         
-
-        <a href="Stormblood.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
-            <div>
-                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">⚔️ Stormblood</h2>
-                <p class="text-sm text-my-neutral-500">홍련의 해방자</p>
+        <a href="Stormblood.html" class="flex items-center p-5 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 border-l-4 border-transparent hover:border-red-700 group">
+            <div class="ml-2">
+                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-red-700 transition-colors">⚔️ Stormblood</h2>
+                <p class="text-sm text-my-neutral-500 font-medium mt-1">홍련의 해방자</p>
             </div>
         </a>
 
-        <a href="Shadowbringers.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
-            <div>
-                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">🌑 Shadowbringers</h2>
-                <p class="text-sm text-my-neutral-500">칠흑의 반역자</p>
+        <a href="Shadowbringers.html" class="flex items-center p-5 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 border-l-4 border-transparent hover:border-purple-700 group">
+            <div class="ml-2">
+                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-purple-700 transition-colors">🌑 Shadowbringers</h2>
+                <p class="text-sm text-my-neutral-500 font-medium mt-1">칠흑의 반역자</p>
             </div>
         </a>
 
-        <a href="Endwalker.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
-            <div>
-                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">🌠 Endwalker</h2>
-                <p class="text-sm text-my-neutral-500">효월의 종언</p>
+        <a href="Endwalker.html" class="flex items-center p-5 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 border-l-4 border-transparent hover:border-gray-800 group">
+            <div class="ml-2">
+                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-gray-800 transition-colors">🌠 Endwalker</h2>
+                <p class="text-sm text-my-neutral-500 font-medium mt-1">효월의 종언</p>
             </div>
         </a>
         
-        <a href="Dawntrail.html" class="flex items-center p-4 sm:p-6 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-blue-500 group">
-            <div>
-                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-blue-700">☀️ Dawntrail</h2>
-                <p class="text-sm text-my-neutral-500">황금의 유산</p>
+        <a href="Dawntrail.html" class="flex items-center p-5 bg-my-neutral-100 rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 border-l-4 border-transparent hover:border-yellow-600 group">
+            <div class="ml-2">
+                <h2 class="text-2xl font-bold text-my-neutral-900 group-hover:text-yellow-600 transition-colors">☀️ Dawntrail</h2>
+                <p class="text-sm text-my-neutral-500 font-medium mt-1">황금의 유산</p>
             </div>
         </a>
         
     </div>
 
     <script>
-        // --- 날짜 및 시간 기능 스크립트 ---
         window.addEventListener('DOMContentLoaded', () => {
             const timeDisplay = document.getElementById('time-display');
             const dateDisplay = document.getElementById('date-display');
 
             function updateTime() {
-                // 현재 시간을 한국 표준시(KST)로 표시
                 const now = new Date();
-                const timeOptions = {
-                    timeZone: 'Asia/Seoul',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit',
-                    hour12: false
-                };
-                const dateOptions = {
-                    timeZone: 'Asia/Seoul',
-                    year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'long'
-                };
+                // 한국 표준시(KST)
+                const timeOptions = { timeZone: 'Asia/Seoul', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+                const dateOptions = { timeZone: 'Asia/Seoul', year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'long' };
                 
                 timeDisplay.textContent = now.toLocaleTimeString('ko-KR', timeOptions);
                 dateDisplay.textContent = now.toLocaleDateString('ko-KR', dateOptions);
@@ -165,11 +158,15 @@
         });
     </script>
 
-    <audio controls autoplay loop>
-        <source src="Audio.mp3" type="audio/mp3">
-    </audio>
-    <h1>Audio.mp3 재생 중...</h1>
-    <p>브라우저에 따라 'autoplay' 속성이 작동하지 않을 수 있습니다. 이 경우 재생 버튼을 눌러주세요.</p>
+    <div class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-gray-200 p-3 shadow-lg flex flex-col sm:flex-row items-center justify-center gap-4 z-50">
+        <div class="text-center sm:text-left">
+            <p class="text-sm font-bold text-gray-800">🎵 Background Music</p>
+            <p class="text-xs text-gray-500">음악이 재생되지 않으면 버튼을 눌러주세요.</p>
+        </div>
+        <audio controls autoplay loop class="w-full max-w-md h-8">
+            <source src="Audio.mp3" type="audio/mp3">
+        </audio>
+    </div>
 
 </body>
 </html>
